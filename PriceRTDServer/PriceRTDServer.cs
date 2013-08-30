@@ -25,12 +25,17 @@ namespace PriceRTDServer
         private EventLog logOSEvent = new EventLog();
         private string logTitle = "PriceRTDServer";
         private TibcoMsgChannel msgChannel = null;
-        private PriceClient priceClient = null;
-        private decimal lastDeal = 0.0m;
+        private PriceClient priceClient = null;        
 
+        /// <summary>
+        /// 記錄Client端的訂閱
+        /// </summary>
         private Dictionary<string, List<int>> dicClient = new Dictionary<string, List<int>>(); // key = symbol, value = topicid
         private ReaderWriterLock rwlClient = new ReaderWriterLock();
 
+        /// <summary>
+        /// 記錄要更新給Client端的資訊
+        /// </summary>
         private Dictionary<int, decimal> dicLatestDeal = new Dictionary<int, decimal>();
         private ReaderWriterLock rwlLatestDeal = new ReaderWriterLock();
 
@@ -77,12 +82,12 @@ namespace PriceRTDServer
 
         void priceClient_OnUpdatePrice(string symbol, decimal deal)
         {
-            //EventLogTarget.Instance.WriteLog(string.Format("PriceRTDServer receive {0} @ {1}", symbol, deal));
-            lastDeal = deal;
+            //EventLogTarget.Instance.WriteLog(string.Format("PriceRTDServer receive {0} @ {1}", symbol, deal));            
 
             // Get topicID
             List<int> topicID = QueryTopicID(symbol);
 
+            #region update data and notify Excel
             if (topicID.Count > 0)
             {
                 try
@@ -108,6 +113,7 @@ namespace PriceRTDServer
                 if (m_callback != null)
                     m_callback.UpdateNotify();
             }
+            #endregion
         }
 
         public object ConnectData(int topicId, ref Array strings, ref bool newValues)
@@ -183,16 +189,12 @@ namespace PriceRTDServer
                 topicCount = 0;
                 return new object[0, 0];
             }          
-
-            
-            
         }
 
         public void DisconnectData(int topicId)
         {
             WriteLog(string.Format("DisconnectData() {0}", topicId));
-
-
+            
             try
             {
                 rwlClient.AcquireWriterLock(Timeout.Infinite);
@@ -287,32 +289,5 @@ namespace PriceRTDServer
 
     }
 
-    [Guid("EC0E6191-DB51-11D3-8F3E-00C04F3651B8")]
-    public interface IRtdServer
-    {
-        int ServerStart(IRTDUpdateEvent callback);
-
-        object ConnectData(int topicId,
-                           [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)] ref Array strings,
-                           ref bool newValues);
-
-        [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)]
-        Array RefreshData(ref int topicCount);
-
-        void DisconnectData(int topicId);
-
-        int Heartbeat();
-
-        void ServerTerminate();
-    }
-
-    [Guid("A43788C1-D91B-11D3-8F39-00C04F3651B8")]
-    public interface IRTDUpdateEvent
-    {
-        void UpdateNotify();
-
-        int HeartbeatInterval { get; set; }
-
-        void Disconnect();
-    }
+   
 }

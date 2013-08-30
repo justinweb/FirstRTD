@@ -50,6 +50,7 @@
     <Compile Include="PriceClient.cs" />
     <Compile Include="PriceRTDServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RTDLib.cs" />
     <Compile Include="TibcoMsgChannel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
