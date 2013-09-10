@@ -160,7 +160,7 @@ namespace PriceRTDServer
 
         public Array RefreshData(ref int topicCount)
         {
-            WriteLog(string.Format("RefreshData()"));
+            //WriteLog(string.Format("RefreshData()"));
 
             try
             {
