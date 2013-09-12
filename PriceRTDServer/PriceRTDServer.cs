@@ -61,15 +61,17 @@ namespace PriceRTDServer
             try
             {
                 msgChannel = new TibcoMsgChannel();
-                msgChannel.Service = "17001";
-                msgChannel.Network = "";
-                msgChannel.Daemon = "10.32.242.41:7500";
+                msgChannel.Service = RTDServerConfig.Instance.ServiceCode;
+                msgChannel.Network = RTDServerConfig.Instance.Network;
+                msgChannel.Daemon = RTDServerConfig.Instance.Daemon;
                 msgChannel.Description = "PriceRTDServer";
                 msgChannel.Connect();
 
                 priceClient = new PriceClient(msgChannel);
                 priceClient.OnUpdatePrice += new Action<string, decimal>(priceClient_OnUpdatePrice);
                 priceClient.Subscribe("ST.OMS.SERVER.Price.>");
+
+                WriteLog(string.Format("MsgChannel {0},{1},{2}", RTDServerConfig.Instance.Daemon, RTDServerConfig.Instance.Network, RTDServerConfig.Instance.ServiceCode));
             }
             catch (Exception exp)
             {
@@ -232,6 +234,12 @@ namespace PriceRTDServer
 
                 msgChannel.DisConnect();
                 msgChannel.Destory();
+
+                #region 
+                RTDServerConfig.Instance.ServiceCode = msgChannel.Service;
+                RTDServerConfig.Instance.Network = msgChannel.Network; 
+                RTDServerConfig.Instance.Daemon = msgChannel.Daemon;
+                #endregion
             }
             catch (Exception exp)
             {

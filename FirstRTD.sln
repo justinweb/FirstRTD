@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTDCore", "RTDCore\RTDCore.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceRTDServer", "PriceRTDServer\PriceRTDServer.csproj", "{352DACED-62D5-487C-A603-DE7B1C5869F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UT", "UT\UT.csproj", "{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{352DACED-62D5-487C-A603-DE7B1C5869F7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{352DACED-62D5-487C-A603-DE7B1C5869F7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{352DACED-62D5-487C-A603-DE7B1C5869F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Debug|x86.ActiveCfg = Debug|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Debug|x86.Build.0 = Debug|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Release|Any CPU.ActiveCfg = Release|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Release|x86.ActiveCfg = Release|x86
+		{2A76D5CA-3510-499B-A3CB-F2E5C5E3193F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
